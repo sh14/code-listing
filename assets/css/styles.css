@@ -1,0 +1,245 @@
+:root {
+    --border__radius: 4px;
+    --border__color: #eb0a3b;
+    --button__background_hover: #eb0a3b;
+
+    --body__background_light: #fff;
+    --body__text-color_light: #000;
+    --code__background_light: #aaa;
+    --code__background_hover_light: #ccc;
+    --code__background_active_light: #eee;
+    --code__text-color_light: #444;
+    --code__text-color_invert_light: #ccc;
+    --code__lines-text-color_light: #777;
+    --line__color_light: rgba(0, 0, 0, .04);
+
+    --body__background_dark: #1f2b38;
+    --body__text-color_dark: #fff;
+    --code__background_dark: #1b1c1d;
+    --code__background_hover_dark: #262d32;
+    --code__background_active_dark: #1f2529;
+    --code__text-color_dark: #ccc;
+    --code__text-color_invert_dark: #ccc;
+    --code__lines-text-color_dark: #777;
+    --line__color_dark: rgba(255, 255, 255, .04);
+
+}
+
+@media (prefers-color-scheme: light ) {
+    :root {
+        --body__background: var(--body__background_light);
+        --body__text-color: var(--body__text-color_light);
+        --code__background: var(--code__background_light);
+        --code__background_hover: var(--code__background_hover_light);
+        --code__background_active: var(--code__background_active_light);
+        --code__text-color: var(--code__text-color_light);
+        --code__text-color_invert: var(--code__text-color_invert_light);
+        --code__lines-text-color: var(--code__lines-text-color_light);
+        --line__color: var(--line__color_light);
+    }
+}
+
+@media (prefers-color-scheme: dark ) {
+    :root {
+        --body__background: var(--body__background_dark);
+        --body__text-color: var(--body__text-color_dark);
+        --code__background: var(--code__background_dark);
+        --code__background_hover: var(--code__background_hover_dark);
+        --code__background_active: var(--code__background_active_dark);
+        --code__text-color: var(--code__text-color_dark);
+        --code__text-color_invert: var(--code__text-color_invert_dark);
+        --code__lines-text-color: var(--code__lines-text-color_dark);
+        --line__color: var(--line__color_dark);
+    }
+}
+
+
+code {
+    color: var(--code__text-color);
+    background-color: var(--line__color);
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: inline-block;
+    font-size: 1rem;
+    font-family: monospace;
+}
+
+.code-snippet {
+    color: var(--code__text-color);
+    background-color: var(--code__background_active);
+    position: relative;
+    border-radius: calc(var(--border__radius) * 2) calc(var(--border__radius) * 2) calc(var(--border__radius) * 2) calc(var(--border__radius) * 2);
+    font-size: 1rem;
+    line-height: 1.2;
+    padding-bottom: 1.2em;
+    margin-bottom: calc(8px * 2 + 1rem);
+}
+
+.code-snippet.light {
+    color: var(--code__text-color_light);
+    background-color: var(--code__background_active_light);
+}
+
+.code-snippet.dark {
+    color: var(--code__text-color_dark);
+    background-color: var(--code__background_active_dark);
+}
+
+.code-snippet br {
+    display: none;
+}
+
+.code-snippet__tabs {
+    display: flex;
+    border-radius: calc(var(--border__radius) * 2) calc(var(--border__radius) * 2) 0 0;
+    background-color: var(--code__background);
+}
+
+.code-snippet.light .code-snippet__tabs {
+    background-color: var(--code__background_light);
+}
+
+.code-snippet.dark .code-snippet__tabs {
+    background-color: var(--code__background_dark);
+}
+
+.code-snippet__tab {
+    color: inherit;
+    background-color: transparent;
+    display: block;
+    cursor: pointer;
+    border: none;
+    outline: none !important;
+    padding: 14px 16px;
+    border-top: 4px solid transparent;
+    border-radius: 0;
+}
+
+.code-snippet__tab:first-child {
+    border-radius: calc(var(--border__radius) * 2) 0 0 0;
+}
+
+.code-snippet__tab:hover {
+    background-color: var(--code__background_hover);
+}
+
+.code-snippet.light .code-snippet__tab:hover {
+    background-color: var(--code__background_hover_light);
+}
+
+.code-snippet.dark .code-snippet__tab:hover {
+    background-color: var(--code__background_hover_dark);
+}
+
+.code-snippet__tab.active {
+    background-color: var(--code__background_active);
+    border-top: 4px solid var(--border__color);
+}
+
+.code-snippet.light .code-snippet__tab.active {
+    background-color: var(--code__background_active_light);
+}
+
+.code-snippet.dark .code-snippet__tab.active {
+    background-color: var(--code__background_active_dark);
+}
+
+
+.code-snippet__tab.active:hover {
+    cursor: default;
+}
+
+.code-snippet pre {
+    margin: 0;
+}
+
+.code-snippet__copy {
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    border: none;
+    line-height: 1;
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 0 0 var(--border__radius) var(--border__radius);
+
+}
+
+.code-snippet.light .code-snippet__copy {
+    background: var(--code__background_light);
+    color: var(--code__lines-text-color_light);
+}
+
+.code-snippet.dark .code-snippet__copy {
+    background: var(--code__background_dark);
+    color: var(--code__lines-text-color_dark);
+}
+
+
+.code-snippet__copy:hover, .code-snippet__copy:focus {
+    background-color: var(--button__background_hover);
+    color: var(--code__text-color_invert);
+}
+
+.code-snippet.light .code-snippet__copy:hover, .code-snippet.light .code-snippet__copy:focus {
+    color: var(--code__text-color_invert_light);
+}
+
+.code-snippet.dark .code-snippet__copy:hover, .code-snippet.dark .code-snippet__copy:focus {
+    color: var(--code__text-color_invert_dark);
+}
+
+
+.code-box {
+    display: none;
+    font-family: monospace;
+    /*border: 1px solid var(--border__color);*/
+}
+
+.code-box.active {
+    display: flex;
+}
+
+.code-box code {
+    display: none;
+}
+
+.code-box__code {
+    flex-grow: 1;
+}
+.code-box__code div {
+    padding: 0 4px;
+}
+
+
+.code-box__lines {
+    color: var(--code__lines-text-color);
+    border-right: 1px solid var(--code__lines-text-color);
+}
+
+.code-snippet.light .code-box__lines {
+    border-right-color: var(--code__lines-text-color_light);
+}
+
+.code-snippet.dark .code-box__lines {
+    border-right-color: var(--code__lines-text-color_dark);
+}
+
+.code-box__lines div {
+    padding: 0 8px;
+    text-align: right;
+}
+
+.code-box__lines div:nth-child(even), .code-box__code div:nth-child(even) {
+    background-color: var(--line__color);
+}
+
+.code-snippet.light .code-box__lines div:nth-child(even), .code-snippet.light .code-box__code div:nth-child(even) {
+    background-color: var(--line__color_light);
+}
+
+.code-snippet.dark .code-box__lines div:nth-child(even), .code-snippet.dark .code-box__code div:nth-child(even) {
+    background-color: var(--line__color_dark);
+}
+
