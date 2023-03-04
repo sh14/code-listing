@@ -195,6 +195,7 @@ code {
     display: none;
     font-family: monospace;
     /*border: 1px solid var(--border__color);*/
+    overflow: hidden;
 }
 
 .code-box.active {
@@ -207,9 +208,12 @@ code {
 
 .code-box__code {
     flex-grow: 1;
+    overflow-x: scroll;
+    display: grid;
 }
 .code-box__code div {
     padding: 0 4px;
+    white-space: pre;
 }
 
 
