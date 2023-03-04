@@ -9,7 +9,7 @@
         // get the lang of local block
         const localLang = codeElement.closest('[data-lang-active]').getAttribute('data-lang-active')
         // get the lang of current code box
-        const currentLang = codeElement.getAttribute('data-lang')
+        const currentLang = codeElement.getAttribute('lang')
         // create code block
         const mainElement = createElement({
             tag: 'pre',
@@ -88,7 +88,7 @@
      * Beautify all code tags.
      */
     function prepareCodeBoxes() {
-        document.querySelectorAll('code[data-lang]').forEach(codeElement => {
+        document.querySelectorAll('code[lang]').forEach(codeElement => {
             beautifyElement(codeElement)
         })
     }
@@ -101,11 +101,11 @@
         // loop all blocks
         document.querySelectorAll('[data-lang-active]').forEach(blockElement => {
             // if current lang exist in local block
-            if (blockElement.querySelector('[data-lang="' + lang + '"]')) {
+            if (blockElement.querySelector('[lang="' + lang + '"]')) {
                 // loop tabs and codes
-                blockElement.querySelectorAll('[data-lang]').forEach(element => {
+                blockElement.querySelectorAll('[lang]').forEach(element => {
                     // if global lang equal to current lang
-                    if (lang === element.getAttribute('data-lang')) {
+                    if (lang === element.getAttribute('lang')) {
                         // set active
                         element.classList.add('active')
                     } else {
@@ -187,7 +187,7 @@
         }
         for (const key in data.data) {
             // set data attributes
-            element.setAttribute('data-' + key, data.data[key])
+            element.setAttribute('' + key, data.data[key])
         }
         if (data.text) {
             // set content
@@ -212,14 +212,14 @@
             let tabs = []
             let activeFlag = false
             preElement.querySelectorAll('code').forEach((codeElement, index) => {
-                if (!codeElement.getAttribute('data-lang')) {
-                    codeElement.setAttribute('data-lang', 'listing_' + (index + 1))
-                    codeElement.setAttribute('data-lang-caption', 'Listing ' + (index + 1))
+                if (!codeElement.getAttribute('lang')) {
+                    codeElement.setAttribute('lang', 'listing_' + (index + 1))
+                    codeElement.setAttribute('caption', 'Listing ' + (index + 1))
                 }
-                activeFlag = lang === codeElement.getAttribute('data-lang')
+                activeFlag = lang === codeElement.getAttribute('lang')
                 tabs.push({
-                    lang: codeElement.getAttribute('data-lang'),
-                    caption: codeElement.getAttribute('data-lang-caption') ? codeElement.getAttribute('data-lang-caption') : codeElement.getAttribute('data-lang'),
+                    lang: codeElement.getAttribute('lang'),
+                    caption: codeElement.getAttribute('caption') ? codeElement.getAttribute('caption') : codeElement.getAttribute('lang'),
                     active: activeFlag,
                 })
             })
@@ -247,18 +247,18 @@
     }
 
     function addTabListeners() {
-        document.querySelectorAll('[data-lang]').forEach(tab => {
+        document.querySelectorAll('[lang]').forEach(tab => {
             if ('code' !== tab.tagName.toLowerCase()) {
                 tab.addEventListener('click', event => {
                     event.preventDefault()
-                    lang = tab.getAttribute('data-lang')
+                    lang = tab.getAttribute('lang')
                     setActiveTab()
                 })
             }
         })
     }
 
-    let lang = document.querySelector('[data-lang]').getAttribute('data-lang')
+    let lang = document.querySelector('[lang]').getAttribute('lang')
     prepareBlocks()
     prepareCodeBoxes()
     addTabListeners()
