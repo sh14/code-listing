@@ -23,11 +23,12 @@ class AssetsLoader
             'copied'       => __('Copied', textDomain()),
             'theme' => get_option('code_listing', true),
         ];
-        $jsData = array_map(static function ($key,$value){
+        $jsData = array_map(static function ($key, $value) {
             return "$key:'$value'";
-        },array_keys($jsData),$jsData);
-        $jsData = implode(',',( $jsData));
-        if (self::$load) {
+        }, array_keys($jsData), $jsData);
+        $jsData = implode(',', ($jsData));
+//        if (self::$load)
+        {
             echo '<link rel="stylesheet" href="' . getPluginUrl() . 'assets/css/styles.css"/>' . PHP_EOL;
             echo '<script>const codeListing = {' . $jsData . '}</script>';
 
