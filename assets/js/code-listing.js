@@ -57,7 +57,12 @@
         let codeLines = element.innerHTML
             .split("\n")
             // make strings containing only spaces empty
-            .map(item => '' !== item.trim() ? item : '')
+            // .map(item => '' !== item.trim() ? item : '')
+            .map(item => {
+                return item
+                    .replaceAll('<', '&lt;')
+                    .replaceAll('>', '&gt;')
+            })
         // remove last empty elements
         codeLines = removeTrailingEmptyElements(codeLines)
         // remove first empty elements
