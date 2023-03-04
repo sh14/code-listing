@@ -201,6 +201,9 @@
     function prepareBlocks() {
         document.querySelectorAll('pre').forEach(preElement => {
             preElement.classList.add('code-snippet')
+            if (codeListing['theme']) {
+                preElement.classList.add(codeListing['theme'])
+            }
             let tabs = []
             let activeFlag = false
             preElement.querySelectorAll('code').forEach((codeElement, index) => {

@@ -19,8 +19,9 @@ class AssetsLoader
     public static function enqueue(): void
     {
         $jsData = [
-            'copy'   => __('Copy', textDomain()),
-            'copied' => __('Copied', textDomain()),
+            'copy'         => __('Copy', textDomain()),
+            'copied'       => __('Copied', textDomain()),
+            'theme' => get_option('code_listing', true),
         ];
         $jsData = array_map(static function ($key,$value){
             return "$key:'$value'";
