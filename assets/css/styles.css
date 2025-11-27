@@ -62,6 +62,7 @@ code {
     display: inline-block;
     font-size: 1rem;
     font-family: monospace;
+    line-height: 1;
 }
 
 .code-snippet {
@@ -149,45 +150,18 @@ code {
     cursor: default;
 }
 
+.code-snippet__tab_copy {
+    margin-left: auto;
+    border-radius: 0 calc(var(--border__radius) * 2) 0 0;
+}
+.code-snippet.dark .code-snippet__tab_copy:hover, .code-snippet.dark .code-snippet__tab_copy:focus,
+.code-snippet.light .code-snippet__tab_copy:hover, .code-snippet.light .code-snippet__tab_copy:focus
+{
+    background-color: var(--button__background_hover);
+}
+
 .code-snippet pre {
     margin: 0;
-}
-
-.code-snippet__copy {
-    position: absolute;
-    top: 100%;
-    right: 16px;
-    border: none;
-    line-height: 1;
-    padding: 8px 16px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 0 0 var(--border__radius) var(--border__radius);
-
-}
-
-.code-snippet.light .code-snippet__copy {
-    background: var(--code__background_light);
-    color: var(--code__lines-text-color_light);
-}
-
-.code-snippet.dark .code-snippet__copy {
-    background: var(--code__background_dark);
-    color: var(--code__lines-text-color_dark);
-}
-
-
-.code-snippet__copy:hover, .code-snippet__copy:focus {
-    background-color: var(--button__background_hover);
-    color: var(--code__text-color_invert);
-}
-
-.code-snippet.light .code-snippet__copy:hover, .code-snippet.light .code-snippet__copy:focus {
-    color: var(--code__text-color_invert_light);
-}
-
-.code-snippet.dark .code-snippet__copy:hover, .code-snippet.dark .code-snippet__copy:focus {
-    color: var(--code__text-color_invert_dark);
 }
 
 

@@ -21,12 +21,6 @@
         mainElement.append(createElement({class: 'code-box__lines', html: linesData[0],}))
         // add lines of code
         mainElement.append(createElement({class: 'code-box__code', html: linesData[1]}))
-        // add copy button
-        mainElement.append(createElement({
-            tag: 'button',
-            class: 'code-snippet__copy js-code-snippet-copy',
-            html: codeListing.copy
-        }))
         // add hidden code box element
         mainElement.append(createElement({tag: 'code', text: codeElement.innerHTML,}))
         // replace old code box with new code block
@@ -118,6 +112,18 @@
     }
 
     /**
+     * Decode HTML entities in text.
+     *
+     * @param text
+     * @returns {string}
+     */
+    function decodeHtmlEntities(text) {
+        const textarea = document.createElement('textarea')
+        textarea.innerHTML = text
+        return textarea.value
+    }
+
+    /**
      * Put given text to clipboard.
      *
      * @param text
@@ -144,10 +150,29 @@
             button.addEventListener('click', event => {
                 event.preventDefault()
                 const element = event.target
-                const parent = element.parentElement
+                const parent = element.closest('[data-lang-active]')
                 const code = parent.querySelector('.active code')
+                // Get the text content from the visible code block and decode HTML entities
+                const visibleCode = parent.querySelector('.active .code-box__code')
+                let codeText = ''
+                if (visibleCode) {
+                    // Get text from visible code lines and reverse the encoding done in getLines
+                    const lines = visibleCode.querySelectorAll('div')
+                    codeText = Array.from(lines).map(line => {
+                        // Reverse the HTML encoding done in getLines function
+                        return line.innerHTML
+                            .replaceAll('&lt;', '<')
+                            .replaceAll('&gt;', '>')
+                            .replaceAll('&amp;', '&')
+                            .replaceAll('&quot;', '"')
+                            .replaceAll('&#39;', "'")
+                    }).join('\n')
+                } else {
+                    // Fallback to hidden code element
+                    codeText = decodeHtmlEntities(code.innerHTML.replaceAll('<br>', "\n"))
+                }
                 // copy data to clipboard
-                unsecuredCopyToClipboard(code.innerHTML.replaceAll('<br>', "\n"))
+                unsecuredCopyToClipboard(codeText)
                 element.innerHTML = codeListing.copied
                 // set caption back in 2 seconds
                 setTimeout(function () {
@@ -239,6 +264,12 @@
                 // add new tab element
                 tabsElement.append(tabElement)
             })
+            // add copy button
+            tabsElement.append(createElement({
+                tag: 'button',
+                class: 'code-snippet__tab code-snippet__tab_copy js-code-snippet-copy',
+                html: codeListing.copy
+            }))
             // add tabs element before content
             preElement.prepend(tabsElement)
             // rename tag
@@ -247,7 +278,7 @@
     }
 
     function addTabListeners() {
-        document.querySelectorAll('[lang]').forEach(tab => {
+        document.querySelectorAll('button[lang]').forEach(tab => {
             if ('code' !== tab.tagName.toLowerCase()) {
                 tab.addEventListener('click', event => {
                     event.preventDefault()
