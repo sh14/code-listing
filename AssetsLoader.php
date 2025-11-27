@@ -9,22 +9,40 @@ class AssetsLoader
         add_action('wp_footer', [self::class, 'enqueue']);
     }
 
-    public static function enqueue(): void
-    {
-        $jsData = [
-            'copy'         => __('Copy', textDomain()),
-            'copied'       => __('Copied', textDomain()),
-            'theme' => get_option('code_listing', true),
-        ];
-        $jsData = array_map(static function ($key, $value) {
-            return "$key:'$value'";
-        }, array_keys($jsData), $jsData);
-        $jsData = implode(',', ($jsData));
-            echo '<link rel="stylesheet" href="' . getPluginUrl() . 'assets/css/styles.css?v='.getPluginVer().'"/>' . PHP_EOL;
-            echo '<script>const codeListing = {' . $jsData . '}</script>';
+	public static function enqueue(): void
+	{
+		// Подготовка данных для JS
+		$jsData = [
+			'copy'   => __('Copy', textDomain()),
+			'copied' => __('Copied', textDomain()),
+			'theme'  => get_option('code_listing', true),
+		];
 
-            echo '<script src="' . getPluginUrl() . 'assets/js/code-listing.js?v='.getPluginVer().'"></script>' . PHP_EOL;
-    }
+		// Регистрируем стили
+		wp_enqueue_style(
+			'code-listing-styles',
+			getPluginUrl() . 'assets/css/styles.css',
+			[],
+			getPluginVer()
+		);
+
+		// Регистрируем скрипт
+		wp_enqueue_script(
+			'code-listing-script',
+			getPluginUrl() . 'assets/js/code-listing.js',
+			[],
+			getPluginVer(),
+			true // Скрипт подключаем внизу страницы
+		);
+
+		// Локализуем данные для JS
+		wp_localize_script(
+			'code-listing-script',
+			'codeListing',
+			$jsData
+		);
+	}
+
 
 }
 

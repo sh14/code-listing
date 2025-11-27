@@ -4,7 +4,7 @@
  *
  * Plugin Name:       Code listing
  * Description:       Code examples beautifier. Use tag CODE with parameters "data-lang" and "data-lang-caption" inside tag PRE.
- * Version:           1.1.2
+ * Version:           1.2.0
  * Requires at least: 5.1
  * Requires PHP:      5.6.20
  * Author:            Alex Isaenko
@@ -43,8 +43,11 @@
 
 namespace codeListing;
 
+use Helpers\Debug;
+
 require __DIR__ . '/AssetsLoader.php';
 require __DIR__ . '/OptionsPage.php';
+require __DIR__ . '/Block.php';
 
 function getPluginUrl(): string {
 	return plugin_dir_url( __FILE__ );
@@ -69,5 +72,6 @@ function textDomain(): string {
 
 AssetsLoader::init();
 new OptionsPage();
+Block::init();
 
 // eof
